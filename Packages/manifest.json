@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.hadh.modules": "ssh://git@gitlab.com/DoHaiHa/unity_common_modules_200.git#master",
     "com.unity.collab-proxy": "1.17.6",
     "com.unity.ide.rider": "3.0.16",
     "com.unity.ide.visualstudio": "2.0.16",
