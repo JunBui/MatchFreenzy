@@ -7,8 +7,15 @@ using UnityEngine;
 public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
 {
     public List<FrenzyItemManager> FrenzyItemManagers = new List<FrenzyItemManager>();
+    public List<Transform> FrenzyItemHolder;
     public FrenzyItemController CurrentSelectedItem;
     public FrenzyItemController LastSelectedItem;
+    private int currentHolderIndex;
+
+    private void Start()
+    {
+        currentHolderIndex = 0;
+    }
 
     public void CheckCanMoveAwayThreeItem()
     {
@@ -39,12 +46,20 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (CurrentSelectedItem && LastSelectedItem)
+            if (LastSelectedItem)
             {
-                CurrentSelectedItem.OnDeselect();
                 LastSelectedItem.OnDeselect();
-                CurrentSelectedItem = null;
                 LastSelectedItem = null;
+            }
+
+            if (CurrentSelectedItem)
+            {
+                if(currentHolderIndex>=FrenzyItemHolder.Count)
+                    return;
+                CurrentSelectedItem.GetItem(FrenzyItemHolder[currentHolderIndex]);
+                currentHolderIndex++;
+                CurrentSelectedItem.OnDeselect();
+                CurrentSelectedItem = null;
             }
         }
         
