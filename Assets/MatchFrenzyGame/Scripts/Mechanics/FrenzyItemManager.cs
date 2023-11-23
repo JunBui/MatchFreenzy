@@ -6,7 +6,7 @@ using UnityEngine;
 public class FrenzyItemManager : MonoBehaviour
 {
     public FrenzyItemController FrenzyItemController;
-    [SerializeField] private string id;
+    public string id;
     private void Start()
     {
         FrenzyGameManager.Instance.FrenzyItemManagers.Add(this);

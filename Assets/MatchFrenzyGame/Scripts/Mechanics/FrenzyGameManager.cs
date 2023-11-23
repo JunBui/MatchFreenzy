@@ -10,7 +10,7 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
     public List<FrenzyItemManager> FrenzyItemManagers = new List<FrenzyItemManager>();
     public List<Transform> FrenzyItemHolder;
     public List<FrenzyItemManager> FrenzyDataHolder;
-    Dictionary<FrenzyItemManager,int> FrenzyIdExists = new Dictionary<FrenzyItemManager, int>();
+    Dictionary<string,int> FrenzyIdExists = new Dictionary<string, int>();
     public FrenzyItemController CurrentSelectedItem;
     public FrenzyItemController LastSelectedItem;
     private int currentHolderIndex;
@@ -25,13 +25,13 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
         if (item != null)
         {
             FrenzyDataHolder.Add(item);
-            if (FrenzyIdExists.ContainsKey(item))
+            if (FrenzyIdExists.ContainsKey(item.id))
             {
-                FrenzyIdExists[item]++;
+                FrenzyIdExists[item.id]++;
             }
             else
             { 
-                FrenzyIdExists.Add(item,1);
+                FrenzyIdExists.Add(item.id,1);
             }
         }
         CheckCanMoveAwayThreeItem();
@@ -43,7 +43,7 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
         List<FrenzyItemManager> garbageList = new List<FrenzyItemManager>();
         for (int i = FrenzyDataHolder.Count - 1; i >= 0; i--)
         {
-            if (FrenzyIdExists[FrenzyDataHolder[i]] >= 3)
+            if (FrenzyIdExists[FrenzyDataHolder[i].id] >= 3)
             {
                 garbageList.Add(FrenzyDataHolder[i]);
                 Destroy(FrenzyDataHolder[i].gameObject);
@@ -53,7 +53,10 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
 
         foreach (var garbage in garbageList)
         {
-            FrenzyIdExists.Remove(garbage);
+            if (FrenzyIdExists.Remove(garbage.id))
+            {
+                currentHolderIndex -= 3;
+            }
         }
     }
 

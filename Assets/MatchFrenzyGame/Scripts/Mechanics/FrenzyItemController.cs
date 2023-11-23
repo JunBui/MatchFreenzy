@@ -10,9 +10,12 @@ public class FrenzyItemController : MonoBehaviour
     public Rigidbody rb;
     public FrenzyItemManager FrenzyItemManager;
     private bool canSelect;
+
+    private Vector3 defaultLocalScale;
     // Start is called before the first frame update
     void Start()
     {
+        defaultLocalScale = this.transform.localScale;
         canSelect = true;
         Outline = GetComponent<Outline>();
         FrenzyItemManager thisItemManager = GetComponentInParent<FrenzyItemManager>();
@@ -29,7 +32,7 @@ public class FrenzyItemController : MonoBehaviour
         if(canSelect == false)
             return;
         SetOutLine(2.3f,Color.green);
-        this.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), .75f);
+        this.transform.DOScale(defaultLocalScale*1.1f, .75f);
     }
 
     public void GetItem(Transform MoveToPos)
@@ -41,8 +44,11 @@ public class FrenzyItemController : MonoBehaviour
         canSelect = false;
         Vector3 modifyMovePos = MoveToPos.position;
         modifyMovePos.y += .1f;
-        transform.DOMove(modifyMovePos, 1);
-        FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
+        this.transform.DOScale(Vector3.one, .75f);
+        transform.DOMove(modifyMovePos, 1).OnComplete((() =>
+        {
+            FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
+        }));
     }
 
     public void OnDeselect()
@@ -50,7 +56,7 @@ public class FrenzyItemController : MonoBehaviour
         if(canSelect == false)
             return;
         ResetOutline();
-        this.transform.DOScale(Vector3.one, .75f);
+        this.transform.DOScale(defaultLocalScale, .75f);
     }
 
     public void ResetOutline()
