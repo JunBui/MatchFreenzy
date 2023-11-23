@@ -8,6 +8,7 @@ public class FrenzyItemController : MonoBehaviour
 {
     public Outline Outline;
     public Rigidbody rb;
+    public FrenzyItemManager FrenzyItemManager;
     private bool canSelect;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,10 @@ public class FrenzyItemController : MonoBehaviour
         FrenzyItemManager thisItemManager = GetComponentInParent<FrenzyItemManager>();
         rb = GetComponent<Rigidbody>();
         if (thisItemManager)
+        {
             thisItemManager.FrenzyItemController = this;
+            FrenzyItemManager = thisItemManager;
+        }
     }
 
     public void OnSelected()
@@ -38,7 +42,7 @@ public class FrenzyItemController : MonoBehaviour
         Vector3 modifyMovePos = MoveToPos.position;
         modifyMovePos.y += .1f;
         transform.DOMove(modifyMovePos, 1);
-        FrenzyGameManager.Instance.CheckCanMoveAwayThreeItem();
+        FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
     }
 
     public void OnDeselect()

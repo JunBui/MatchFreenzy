@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrenzyItemController: {fileID: 0}
+  id: SphereBlue
 --- !u!1 &5826452150240980998
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Outline: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!54 &5826452150240980992
 Rigidbody:
   m_ObjectHideFlags: 0
