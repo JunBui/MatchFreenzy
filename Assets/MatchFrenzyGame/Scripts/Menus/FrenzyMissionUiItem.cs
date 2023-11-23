@@ -22,8 +22,6 @@ public class FrenzyMissionUiItem : BaseMonoBehaviour
     }
     public void GetFrenzyItemEventHandler(FrenzyGameEvents.GetFrezyItem param)
     {
-        Debug.Log(param.id);
-        Debug.Log(thisItemId);
         if (param.id == thisItemId)
         {
             NumberOfMission--;
@@ -49,7 +47,6 @@ public class FrenzyMissionUiItem : BaseMonoBehaviour
     {
         thisItemUi = itemData;
         thisItemId = thisItemUi.Item.id;
-        Debug.Log(thisItemUi.Item.id);
         Icon.sprite = itemData.Item.icon;
         NumberOfMission = itemData.AmountOfItem;
         NumberOfMissionText.text = NumberOfMission.ToString();

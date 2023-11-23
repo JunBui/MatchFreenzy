@@ -55,7 +55,6 @@ public class FrenzyItemController : MonoBehaviour
         MoveTo(MoveToPos,(() =>
         {
             FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
-            FrenzyGameManager.Instance.CheckGameFail();
         }));
         this.transform.DOScale(Vector3.one, .75f);
     }

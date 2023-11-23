@@ -22,9 +22,10 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
     public FrenzyItemController LastSelectedItem;
     private int currentHolderIndex;
     private int currentSpawnIndex;
-
+    private bool canCheckGameFail;
     private void Start()
     {
+        canCheckGameFail = true;
         currentHolderIndex = 0;
         InitLevel();
         EventManager.Instance.AddListener<FrenzyGameEvents.GetFrezyItem>(GetFrenzyItemEventHandler);
@@ -52,8 +53,10 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
     }
     public void CheckGameFail()
     {
-        if (currentHolderIndex >= FrenzyItemHolder.Count)
+        if (canCheckGameFail)
         {
+            Debug.Log("Fail game");
+            canCheckGameFail = false;
             DOVirtual.DelayedCall(1, (() =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -96,38 +99,69 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
                 FrenzyIdExists.Add(item.id,1);
             }
         }
+        // Debug.Log("----");
+        // foreach (var frenzyId in FrenzyIdExists)
+        // {
+        //     Debug.Log("Frenzy: " + frenzyId.Key + " --- value: " +frenzyId.Value );
+        // }
+        // Debug.Log("----");
         CheckCanMoveAwayThreeItem();
     }
     
 
     public void CheckCanMoveAwayThreeItem()
     {
-        List<FrenzyItemManager> garbageList = new List<FrenzyItemManager>();
-        for (int i = FrenzyDataHolder.Count - 1; i >= 0; i--)
+        List<string> garbageList = new List<string>();
+        //AddToGarbageList
+        foreach (var frenzyItem in FrenzyDataHolder)
         {
-            if (FrenzyIdExists[FrenzyDataHolder[i].id] >= 3)
+            int value;
+            if(!FrenzyIdExists.TryGetValue(frenzyItem.id,out value))
             {
-                if(i+1<FrenzyDataHolder.Count)
-                    FrenzyDataHolder[i+1].FrenzyItemController.MoveTo(FrenzyItemHolder[i],(() =>
-                    {
-                        
-                    }));
-                garbageList.Add(FrenzyDataHolder[i]);
-                FrenzyDataHolder.RemoveAt(i);
+                value = 0;
+            }
+            if ( value >= 3 && garbageList.Contains(frenzyItem.id) == false)
+            {
+                garbageList.Add(frenzyItem.id);
+                FrenzyIdExists.Remove(frenzyItem.id);
             }
         }
 
-        foreach (var garbage in garbageList)
+        List<FrenzyItemManager> tmpList = new List<FrenzyItemManager>();
+        //Remove 3 item
+        int deleteNumber = 0;
+        for (int i = FrenzyDataHolder.Count - 1; i >= 0; i--)
         {
-            garbage.FrenzyItemController.DestroyItem(DestroyPos,(() =>
+            if (garbageList.Contains(FrenzyDataHolder[i].id))
             {
-                Destroy(garbage.gameObject);
-            }));
-            if (FrenzyIdExists.Remove(garbage.id))
-            {
-                currentHolderIndex -= 3;
+                FrenzyItemManager tmp = FrenzyDataHolder[i];
+                tmp.FrenzyItemController.DestroyItem(DestroyPos,(() =>
+                {
+                    tmp.gameObject.SetActive(false);
+                    ReOrderNotDeleteItem();
+                }));
+                tmpList.Add(tmp);
+                FrenzyDataHolder.RemoveAt(i);
+                deleteNumber++;
+                if(deleteNumber>=3)
+                    break;
             }
         }
+        if(deleteNumber == 0 && FrenzyDataHolder.Count>=FrenzyItemHolder.Count)
+            CheckGameFail();
+    }
+
+    public void ReOrderNotDeleteItem()
+    {
+        int index = 0;
+        foreach (var frenzyItem in FrenzyDataHolder)
+        {
+            if(index>=FrenzyItemHolder.Count)
+                break;
+            frenzyItem.FrenzyItemController.MoveTo(FrenzyItemHolder[index], (() => { }));
+            index++;
+        }
+        currentHolderIndex=index;
     }
 
     private void Update()
