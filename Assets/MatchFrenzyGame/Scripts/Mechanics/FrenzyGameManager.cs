@@ -2,22 +2,84 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using Modules.DesignPatterns.EventManager;
 using Modules.DesignPatterns.Singleton;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
 {
+    public FrenzyLevelData LevelData;
+    public List<Transform> SpawnItemPoints = new List<Transform>();
     public List<FrenzyItemManager> FrenzyItemManagers = new List<FrenzyItemManager>();
-    public List<Transform> FrenzyItemHolder;
-    public List<FrenzyItemManager> FrenzyDataHolder;
+    public List<Transform> FrenzyItemHolder = new List<Transform>();
+    public List<FrenzyItemManager> FrenzyDataHolder = new List<FrenzyItemManager>();
+    public Transform DestroyPos;
     Dictionary<string,int> FrenzyIdExists = new Dictionary<string, int>();
+    Dictionary<string,int> FrenzyMissions = new Dictionary<string, int>();
     public FrenzyItemController CurrentSelectedItem;
     public FrenzyItemController LastSelectedItem;
     private int currentHolderIndex;
+    private int currentSpawnIndex;
 
     private void Start()
     {
         currentHolderIndex = 0;
+        InitLevel();
+        EventManager.Instance.AddListener<FrenzyGameEvents.GetFrezyItem>(GetFrenzyItemEventHandler);
+    }
+
+    public void GetFrenzyItemEventHandler(FrenzyGameEvents.GetFrezyItem param)
+    {
+        if (FrenzyMissions.ContainsKey(param.id))
+        {
+            FrenzyMissions[param.id]--;
+            if (FrenzyMissions[param.id] <= 0)
+            {
+                FrenzyMissions.Remove(param.id);
+                CheckGameWin();
+            }
+        }
+    }
+
+    public void CheckGameWin()
+    {
+        if (FrenzyMissions.Count == 0)
+        {
+            Debug.Log("Win game");
+        }
+    }
+    public void CheckGameFail()
+    {
+        if (currentHolderIndex >= FrenzyItemHolder.Count)
+        {
+            DOVirtual.DelayedCall(1, (() =>
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }));
+        }
+    }
+
+    public void InitLevel()
+    {
+        currentSpawnIndex = 0;
+        foreach (var item in LevelData.Levels)
+        {
+            int numberOfItem = item.AmountOfItem - item.AmountOfItem % 3;
+            for (int i = 0; i < numberOfItem; i++)
+            {
+                if (currentSpawnIndex >= SpawnItemPoints.Count)
+                    currentSpawnIndex = 0;
+                Instantiate(item.Item.gameObject, SpawnItemPoints[currentSpawnIndex]);
+                currentSpawnIndex++;
+            }
+        }
+        foreach (var mission in LevelData.Missions)
+        {
+            FrenzyMissions.Add(mission.Item.id,mission.AmountOfItem);
+        }
+        FrenzyMenuMainGame.Instance.Init(LevelData);
     }
 
     public void AddItemToDataHolder(FrenzyItemManager item)
@@ -45,14 +107,22 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
         {
             if (FrenzyIdExists[FrenzyDataHolder[i].id] >= 3)
             {
+                if(i+1<FrenzyDataHolder.Count)
+                    FrenzyDataHolder[i+1].FrenzyItemController.MoveTo(FrenzyItemHolder[i],(() =>
+                    {
+                        
+                    }));
                 garbageList.Add(FrenzyDataHolder[i]);
-                Destroy(FrenzyDataHolder[i].gameObject);
                 FrenzyDataHolder.RemoveAt(i);
             }
         }
 
         foreach (var garbage in garbageList)
         {
+            garbage.FrenzyItemController.DestroyItem(DestroyPos,(() =>
+            {
+                Destroy(garbage.gameObject);
+            }));
             if (FrenzyIdExists.Remove(garbage.id))
             {
                 currentHolderIndex -= 3;
@@ -94,7 +164,7 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
             {
                 if(currentHolderIndex>=FrenzyItemHolder.Count)
                     return;
-                CurrentSelectedItem.GetItem(FrenzyItemHolder[currentHolderIndex]);
+                CurrentSelectedItem.GetItem(FrenzyItemHolder[currentHolderIndex],currentHolderIndex);
                 currentHolderIndex++;
                 CurrentSelectedItem.OnDeselect();
                 CurrentSelectedItem = null;

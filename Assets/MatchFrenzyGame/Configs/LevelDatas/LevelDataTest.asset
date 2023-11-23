@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7486554d759b274ea526979ac6807c7, type: 3}
+  m_Name: LevelDataTest
+  m_EditorClassIdentifier: 
+  Missions:
+  - Item: {fileID: 2915171664007086024, guid: f4301d2730bef7743a32b93ead90aaac, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 5826452149465805378, guid: 78f7b80986f73e84b972c52c0551267d, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 859222b91398fc146adf15ead7fea10f, type: 3}
+    AmountOfItem: 3
+  Levels:
+  - Item: {fileID: 260145202620804291, guid: 75285e1f4e30f8f45ba662b39f5238a4, type: 3}
+    AmountOfItem: 6
+  - Item: {fileID: 5826452149465805378, guid: 78f7b80986f73e84b972c52c0551267d, type: 3}
+    AmountOfItem: 9
+  - Item: {fileID: 260145202620804291, guid: a26375fa11329c24db49f8f17fde38bf, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 5aa2ca0c758aa654986b819f099ac47d, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 2915171664007086024, guid: f4301d2730bef7743a32b93ead90aaac, type: 3}
+    AmountOfItem: 6
+  - Item: {fileID: 260145202620804291, guid: 859222b91398fc146adf15ead7fea10f, type: 3}
+    AmountOfItem: 3

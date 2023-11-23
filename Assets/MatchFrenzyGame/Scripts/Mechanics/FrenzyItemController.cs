@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Modules.DesignPatterns.EventManager;
 using UnityEngine;
 
 public class FrenzyItemController : MonoBehaviour
@@ -35,19 +36,49 @@ public class FrenzyItemController : MonoBehaviour
         this.transform.DOScale(defaultLocalScale*1.1f, .75f);
     }
 
-    public void GetItem(Transform MoveToPos)
+    public void GetItem(Transform MoveToPos, int holderIndex)
     {
         if(canSelect == false)
             return;
         if (rb)
             rb.isKinematic = true;
+        if (FrenzyItemManager)
+        {
+            FrenzyItemManager.HolderIndex = holderIndex;
+            EventManager.Instance.TriggerEvent(new FrenzyGameEvents.GetFrezyItem()
+            {
+                id = FrenzyItemManager.id
+            });
+            
+        }
         canSelect = false;
-        Vector3 modifyMovePos = MoveToPos.position;
-        modifyMovePos.y += .1f;
-        this.transform.DOScale(Vector3.one, .75f);
-        transform.DOMove(modifyMovePos, 1).OnComplete((() =>
+        MoveTo(MoveToPos,(() =>
         {
             FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
+            FrenzyGameManager.Instance.CheckGameFail();
+        }));
+        this.transform.DOScale(Vector3.one, .75f);
+    }
+
+    public void MoveTo(Transform MoveToPos,Action OnComplete)
+    {
+        Vector3 modifyMovePos = MoveToPos.position;
+        modifyMovePos.y += .1f;
+
+        transform.DOMove(modifyMovePos, 1).OnComplete((() => { OnComplete?.Invoke();}));
+    }
+
+    public void DestroyItem(Transform MoveToPos,Action OnComplete)
+    {
+        transform.DOMove(MoveToPos.position, .5f).OnComplete((() =>
+        {
+            transform.DOScale(new Vector3(1.2f,1.2f,1.2f),.5f).OnComplete((() =>
+            {
+                transform.DOScale(Vector3.zero, .2f).OnComplete((() =>
+                {
+                    OnComplete?.Invoke();
+                }));
+            }));
         }));
     }
 

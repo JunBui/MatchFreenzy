@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f11b00c6f40c1041bf2ee8e368b66d0, type: 2}
+  - {fileID: 2100000, guid: aa9f11e356989714e86364c92f438a1f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 260145202620804290}
   - component: {fileID: 260145202620804291}
   m_Layer: 0
-  m_Name: SphereYellow
+  m_Name: SphereGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,6 +192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrenzyItemController: {fileID: 0}
-  id: SphereYellow
-  icon: {fileID: 21300000, guid: f82dfc5fc3c5a8f4080a3550427019c8, type: 3}
+  id: SphereGreen
+  icon: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
   HolderIndex: -1
