@@ -19,11 +19,13 @@ public class FrenzyItemController : MonoBehaviour
     {
         defaultLocalScale = this.transform.localScale;
         canSelect = true;
-        Outline = GetComponent<Outline>();
-        Collider = GetComponent<Collider>();
+        if(Outline == null)
+            Outline = GetComponentInChildren<Outline>();
+        if(Collider == null)
+            Collider = GetComponentInChildren<Collider>();
         // FrenzyItemManager thisItemManager = GetComponentInParent<FrenzyItemManager>();
         if(rb == null)
-            rb = GetComponent<Rigidbody>();
+            rb = GetComponentInChildren<Rigidbody>();
         // if (thisItemManager)
         // {
         //     thisItemManager.FrenzyItemController = this;
@@ -70,7 +72,7 @@ public class FrenzyItemController : MonoBehaviour
     {
         Vector3 modifyMovePos = MoveToPos.position;
         modifyMovePos.y += .1f;
-
+        transform.DOLocalRotate(new Vector3(45,45,45), .45f);
         transform.DOMove(modifyMovePos, .45f).OnComplete((() => { OnComplete?.Invoke();})).SetEase(Ease.InOutSine).SetId("MoveThisItem"+this.GetInstanceID());
     }
 

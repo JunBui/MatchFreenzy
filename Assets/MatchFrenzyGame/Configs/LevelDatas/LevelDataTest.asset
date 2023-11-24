@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: LevelDataTest
   m_EditorClassIdentifier: 
   Missions:
-  - Item: {fileID: 2915171664007086024, guid: f4301d2730bef7743a32b93ead90aaac, type: 3}
+  - Item: {fileID: 260145202620804291, guid: 8e44148f36a7dc04a8e7314d9fab39ee, type: 3}
     AmountOfItem: 3
-  - Item: {fileID: 5826452149465805378, guid: 78f7b80986f73e84b972c52c0551267d, type: 3}
+  - Item: {fileID: 260145202620804291, guid: 81ab1f7adddd9a74b90fe0b2fb466a45, type: 3}
     AmountOfItem: 3
-  - Item: {fileID: 260145202620804291, guid: 859222b91398fc146adf15ead7fea10f, type: 3}
+  - Item: {fileID: 260145202620804291, guid: 882a391dafa675241b2d1c045f884e17, type: 3}
     AmountOfItem: 3
   Levels:
-  - Item: {fileID: 260145202620804291, guid: 75285e1f4e30f8f45ba662b39f5238a4, type: 3}
+  - Item: {fileID: 260145202620804291, guid: 882a391dafa675241b2d1c045f884e17, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 81ab1f7adddd9a74b90fe0b2fb466a45, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 0653224a061a30247a2693fabcccd4b2, type: 3}
     AmountOfItem: 6
-  - Item: {fileID: 5826452149465805378, guid: 78f7b80986f73e84b972c52c0551267d, type: 3}
-    AmountOfItem: 9
-  - Item: {fileID: 260145202620804291, guid: a26375fa11329c24db49f8f17fde38bf, type: 3}
+  - Item: {fileID: 260145202620804291, guid: 8e44148f36a7dc04a8e7314d9fab39ee, type: 3}
     AmountOfItem: 3
-  - Item: {fileID: 260145202620804291, guid: 5aa2ca0c758aa654986b819f099ac47d, type: 3}
-    AmountOfItem: 3
-  - Item: {fileID: 2915171664007086024, guid: f4301d2730bef7743a32b93ead90aaac, type: 3}
+  - Item: {fileID: 260145202620804291, guid: 8f7856c9a0f9b354cb0c85c62fd6836d, type: 3}
     AmountOfItem: 6
-  - Item: {fileID: 260145202620804291, guid: 859222b91398fc146adf15ead7fea10f, type: 3}
-    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: d9f4cf29451eeee468a551080c65d59f, type: 3}
+    AmountOfItem: 6

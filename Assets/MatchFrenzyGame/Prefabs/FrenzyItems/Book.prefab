@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &260145201237716523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 260145201237716520}
+  - component: {fileID: 260145201237716521}
+  - component: {fileID: 260145201237716532}
+  - component: {fileID: 260145201237716533}
+  - component: {fileID: 260145201237716530}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: FrenzyItem
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &260145201237716520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260145201237716523}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_Children:
+  - {fileID: 2721127055982446546}
+  m_Father: {fileID: 260145202620804290}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &260145201237716521
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260145201237716523}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.41
+  m_Center: {x: 0, y: -0.06, z: 0}
+--- !u!114 &260145201237716532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260145201237716523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058c9d029c6e54449829d54526f16e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Outline: {fileID: 7819003529632672497}
+  rb: {fileID: 260145201237716533}
+  Collider: {fileID: 260145201237716521}
+  FrenzyItemManager: {fileID: 260145202620804291}
+--- !u!54 &260145201237716533
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260145201237716523}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &260145201237716530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260145201237716523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.043137256, g: 0, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!1 &260145202620804293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 260145202620804290}
+  - component: {fileID: 260145202620804291}
+  m_Layer: 0
+  m_Name: Book
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &260145202620804290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260145202620804293}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 260145201237716520}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &260145202620804291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260145202620804293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a2f000b39830d479f643d5d7c35f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FrenzyItemController: {fileID: 260145201237716532}
+  id: Book
+  icon: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
+  HolderIndex: -1
+--- !u!1001 &2723848187115808970
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 260145201237716520}
+    m_Modifications:
+    - target: {fileID: 1145505500737044, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_Name
+      value: book
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5794258
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000012663743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.81502503
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000017812944
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 109.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+--- !u!1 &2722738967657350878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1145505500737044, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+  m_PrefabInstance: {fileID: 2723848187115808970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2721127055982446546 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4063646659964696, guid: db2be66d6b993934aaab6a9b77f71577, type: 3}
+  m_PrefabInstance: {fileID: 2723848187115808970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7819003529632672497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2722738967657350878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.043137256, g: 0, b: 0, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

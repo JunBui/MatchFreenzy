@@ -10,18 +10,14 @@ using UnityEngine.SceneManagement;
 
 public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
 {
-    public FrenzyLevelData LevelData;
-    public List<Transform> SpawnItemPoints = new List<Transform>();
     public List<FrenzyItemManager> FrenzyItemManagers = new List<FrenzyItemManager>();
     public List<Transform> FrenzyItemHolder = new List<Transform>();
     public List<FrenzyItemManager> FrenzyDataHolder = new List<FrenzyItemManager>();
     public Transform DestroyPos;
     Dictionary<string,int> FrenzyIdExists = new Dictionary<string, int>();
-    Dictionary<string,int> FrenzyMissions = new Dictionary<string, int>();
     public FrenzyItemController CurrentSelectedItem;
     public FrenzyItemController LastSelectedItem;
     private int currentHolderIndex;
-    private int currentSpawnIndex;
     private bool canCheckGameFail;
     List<string> garbageList = new List<string>();
     List<FrenzyItemManager> removeVisualList = new List<FrenzyItemManager>();
@@ -29,27 +25,10 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
     {
         canCheckGameFail = true;
         currentHolderIndex = 0;
-        InitLevel();
-        EventManager.Instance.AddListener<FrenzyGameEvents.GetFrezyItem>(GetFrenzyItemEventHandler);
-    }
-    public void GetFrenzyItemEventHandler(FrenzyGameEvents.GetFrezyItem param)
-    {
-        if (FrenzyMissions.ContainsKey(param.id))
-        {
-            FrenzyMissions[param.id]--;
-            if (FrenzyMissions[param.id] <= 0)
-            {
-                FrenzyMissions.Remove(param.id);
-                CheckGameWin();
-            }
-        }
     }
     public void CheckGameWin()
     {
-        if (FrenzyMissions.Count == 0)
-        {
-            Debug.Log("Win game");
-        }
+        FrenzySpawnItemManager.Instance.CheckGameWin();
     }
     public void CheckGameFail()
     {
@@ -62,26 +41,6 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }));
         }
-    }
-    public void InitLevel()
-    {
-        currentSpawnIndex = 0;
-        foreach (var item in LevelData.Levels)
-        {
-            int numberOfItem = item.AmountOfItem - item.AmountOfItem % 3;
-            for (int i = 0; i < numberOfItem; i++)
-            {
-                if (currentSpawnIndex >= SpawnItemPoints.Count)
-                    currentSpawnIndex = 0;
-                Instantiate(item.Item.gameObject, SpawnItemPoints[currentSpawnIndex]);
-                currentSpawnIndex++;
-            }
-        }
-        foreach (var mission in LevelData.Missions)
-        {
-            FrenzyMissions.Add(mission.Item.id,mission.AmountOfItem);
-        }
-        FrenzyMenuMainGame.Instance.Init(LevelData);
     }
     public void AddItemToDataHolder(FrenzyItemManager item)
     {
