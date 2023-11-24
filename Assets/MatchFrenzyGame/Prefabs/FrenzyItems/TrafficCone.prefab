@@ -213,8 +213,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lp_TrafficCone01
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9107553296302465095, guid: 80b87b7adcdd56640a327c180ef4556b, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80b87b7adcdd56640a327c180ef4556b, type: 3}
 --- !u!1 &2733406335377585155 stripped
 GameObject:

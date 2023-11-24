@@ -134,6 +134,7 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
         int index = 0;
         foreach (var frenzyItem in FrenzyDataHolder)
         {
+            Debug.Log(index);
             if(index>=FrenzyItemHolder.Count)
                 break;
             frenzyItem.FrenzyItemController.MoveTo(FrenzyItemHolder[index], (() => { }));
