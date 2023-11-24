@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90654d4e456ccf342bffaa78a574c865, type: 3}
+  m_Name: LevelData_01
+  m_EditorClassIdentifier: 
+  Missions:
+  - Item: {fileID: 260145202620804291, guid: 8f7856c9a0f9b354cb0c85c62fd6836d, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: d9f4cf29451eeee468a551080c65d59f, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 8e44148f36a7dc04a8e7314d9fab39ee, type: 3}
+    AmountOfItem: 3
+  Levels:
+  - Item: {fileID: 260145202620804291, guid: 8e44148f36a7dc04a8e7314d9fab39ee, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: d9f4cf29451eeee468a551080c65d59f, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 8f7856c9a0f9b354cb0c85c62fd6836d, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: e5793e3698cd15d4590caaf2d27c7228, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 57c460faa33186b44a4a688dab71b6dc, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: b024f2f09f2626b4a8865d67486b2d70, type: 3}
+    AmountOfItem: 3
+  - Item: {fileID: 260145202620804291, guid: 821f076341b861547a4703bff7f4f540, type: 3}
+    AmountOfItem: 3

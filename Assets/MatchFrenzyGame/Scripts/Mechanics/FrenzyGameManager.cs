@@ -21,14 +21,26 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
     private bool canCheckGameFail;
     List<string> garbageList = new List<string>();
     List<FrenzyItemManager> removeVisualList = new List<FrenzyItemManager>();
+    public bool isPause;
     private void Start()
     {
+        isPause = false;
         canCheckGameFail = true;
         currentHolderIndex = 0;
     }
     public void CheckGameWin()
     {
         FrenzySpawnItemManager.Instance.CheckGameWin();
+    }
+
+    public void WinGame()
+    {
+        FrenzySaveManager.Instance.IncreaseLevelId();
+        FrenzySaveManager.Instance.SetCanGetRandomLevel(true);
+        DOVirtual.DelayedCall(1, (() =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }));
     }
     public void CheckGameFail()
     {

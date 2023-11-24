@@ -52,6 +52,7 @@ public class FrenzyItemController : MonoBehaviour
         if (FrenzyItemManager)
         {
             FrenzyItemManager.HolderIndex = holderIndex;
+            FrenzyGameManager.Instance.CheckGameWin();
             EventManager.Instance.TriggerEvent(new FrenzyGameEvents.GetFrezyItem()
             {
                 id = FrenzyItemManager.id

@@ -1849,7 +1849,7 @@ MonoBehaviour:
   - {fileID: 2915171662926734810}
   - {fileID: 2915171662670566084}
   - {fileID: 2915171663733489083}
-  LevelData: {fileID: 11400000, guid: efba217d67068cf49a06b891d1b92bca, type: 2}
+  LevelListData: {fileID: 11400000, guid: efba217d67068cf49a06b891d1b92bca, type: 2}
 --- !u!1 &1470113894
 GameObject:
   m_ObjectHideFlags: 0
