@@ -23,6 +23,8 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
     private int currentHolderIndex;
     private int currentSpawnIndex;
     private bool canCheckGameFail;
+    List<string> garbageList = new List<string>();
+    List<FrenzyItemManager> removeVisualList = new List<FrenzyItemManager>();
     private void Start()
     {
         canCheckGameFail = true;
@@ -30,7 +32,6 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
         InitLevel();
         EventManager.Instance.AddListener<FrenzyGameEvents.GetFrezyItem>(GetFrenzyItemEventHandler);
     }
-
     public void GetFrenzyItemEventHandler(FrenzyGameEvents.GetFrezyItem param)
     {
         if (FrenzyMissions.ContainsKey(param.id))
@@ -43,7 +44,6 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
             }
         }
     }
-
     public void CheckGameWin()
     {
         if (FrenzyMissions.Count == 0)
@@ -63,7 +63,6 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
             }));
         }
     }
-
     public void InitLevel()
     {
         currentSpawnIndex = 0;
@@ -84,7 +83,6 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
         }
         FrenzyMenuMainGame.Instance.Init(LevelData);
     }
-
     public void AddItemToDataHolder(FrenzyItemManager item)
     {
         if (item != null)
@@ -100,11 +98,9 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
             }
         }
     }
-    
-
     public void CheckCanMoveAwayThreeItem()
     {
-        List<string> garbageList = new List<string>();
+        garbageList = new List<string>();
         //AddToGarbageList
         foreach (var frenzyItem in FrenzyDataHolder)
         {
@@ -115,12 +111,21 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
             }
             if ( value >= 3 && garbageList.Contains(frenzyItem.id) == false)
             {
+                Debug.Log("item need to remove: " + frenzyItem.id + " ---- Had in holder: " + value);
                 garbageList.Add(frenzyItem.id);
                 FrenzyIdExists.Remove(frenzyItem.id);
             }
         }
 
-        List<FrenzyItemManager> tmpList = new List<FrenzyItemManager>();
+        if (garbageList.Count <= 0)
+        {
+            if(FrenzyDataHolder.Count == FrenzyItemHolder.Count)
+                CheckGameFail();
+            return;
+        }
+
+        Debug.Log("----Start remove item data----");
+        removeVisualList = new List<FrenzyItemManager>();
         //Remove 3 item
         int deleteNumber = 0;
         for (int i = FrenzyDataHolder.Count - 1; i >= 0; i--)
@@ -128,24 +133,33 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
             if (garbageList.Contains(FrenzyDataHolder[i].id))
             {
                 FrenzyItemManager tmp = FrenzyDataHolder[i];
-                tmp.FrenzyItemController.DestroyItem(DestroyPos,(() =>
-                {
-                    tmp.gameObject.SetActive(false);
-                    ReOrderNotDeleteItem();
-                }));
-                tmpList.Add(tmp);
+                removeVisualList.Add(tmp);
                 FrenzyDataHolder.RemoveAt(i);
                 deleteNumber++;
                 if(deleteNumber>=3)
                     break;
             }
         }
-        if(deleteNumber == 0 && FrenzyDataHolder.Count>=FrenzyItemHolder.Count)
-            CheckGameFail();
+        CheckCanRemoveThreeItemVisual();
+        Debug.Log("delete number: " + deleteNumber);
+        Debug.Log("frenzy data holder: " + FrenzyDataHolder.Count);
     }
-
+    public void CheckCanRemoveThreeItemVisual()
+    {
+            Debug.Log("----Start remove item visual----");
+            foreach (var item in removeVisualList)
+            {
+                item.FrenzyItemController.DestroyItem(DestroyPos,(() =>
+                {
+                    if(item == removeVisualList[removeVisualList.Count-1])
+                        ReOrderNotDeleteItem();
+                    item.gameObject.SetActive(false);
+                }));
+            }
+    }
     public void ReOrderNotDeleteItem()
     {
+        Debug.Log("---- Reorder item ----");
         int index = 0;
         foreach (var frenzyItem in FrenzyDataHolder)
         {
@@ -156,7 +170,6 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
         }
         currentHolderIndex=index;
     }
-
     private void Update()
     {
         if (Input.GetMouseButton(0))

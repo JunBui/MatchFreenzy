@@ -35,8 +35,8 @@ public class FrenzyItemController : MonoBehaviour
     {
         if(canSelect == false)
             return;
-        SetOutLine(2.3f,Color.green);
-        this.transform.DOScale(defaultLocalScale*1.1f, .75f);
+        SetOutLine(4.5f,Color.green);
+        this.transform.DOScale(defaultLocalScale*1.2f, .35f);
     }
 
     public void GetItem(Transform MoveToPos, int holderIndex)
@@ -57,9 +57,10 @@ public class FrenzyItemController : MonoBehaviour
             
         }
         canSelect = false;
-        FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
         MoveTo(MoveToPos,(() =>
         {
+            Debug.Log("Move To Holder complete");
+            FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
             FrenzyGameManager.Instance.CheckCanMoveAwayThreeItem();
         }));
         this.transform.DOScale(Vector3.one, .75f);
@@ -70,11 +71,12 @@ public class FrenzyItemController : MonoBehaviour
         Vector3 modifyMovePos = MoveToPos.position;
         modifyMovePos.y += .1f;
 
-        transform.DOMove(modifyMovePos, .25f).OnComplete((() => { OnComplete?.Invoke();})).SetEase(Ease.InOutSine);
+        transform.DOMove(modifyMovePos, .45f).OnComplete((() => { OnComplete?.Invoke();})).SetEase(Ease.InOutSine).SetId("MoveThisItem"+this.GetInstanceID());
     }
 
     public void DestroyItem(Transform MoveToPos,Action OnComplete)
     {
+        DOTween.Kill("MoveThisItem" + this.GetInstanceID());
         transform.DOMove(MoveToPos.position, .25f).OnComplete((() =>
         {
             transform.DOScale(new Vector3(1.2f,1.2f,1.2f),.25f).OnComplete((() =>
@@ -92,7 +94,7 @@ public class FrenzyItemController : MonoBehaviour
         if(canSelect == false)
             return;
         ResetOutline();
-        this.transform.DOScale(defaultLocalScale, .75f);
+        this.transform.DOScale(defaultLocalScale, .35f);
     }
 
     public void ResetOutline()
