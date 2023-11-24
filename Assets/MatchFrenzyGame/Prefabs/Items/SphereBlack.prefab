@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Outline: {fileID: 0}
   rb: {fileID: 0}
+  Collider: {fileID: 0}
   FrenzyItemManager: {fileID: 0}
 --- !u!54 &260145201237716533
 Rigidbody:
@@ -142,8 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 0}
-  outlineWidth: 2
+  outlineColor: {r: 0.043137256, g: 0, b: 0, a: 1}
+  outlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -191,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a2f000b39830d479f643d5d7c35f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrenzyItemController: {fileID: 0}
+  FrenzyItemController: {fileID: 260145201237716532}
   id: SphereBlack
   icon: {fileID: 21300000, guid: c8a69ecdf54ac8e4b873466605de27ff, type: 3}
   HolderIndex: -1

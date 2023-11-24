@@ -99,13 +99,6 @@ public class FrenzyGameManager : SingletonMono<FrenzyGameManager>
                 FrenzyIdExists.Add(item.id,1);
             }
         }
-        // Debug.Log("----");
-        // foreach (var frenzyId in FrenzyIdExists)
-        // {
-        //     Debug.Log("Frenzy: " + frenzyId.Key + " --- value: " +frenzyId.Value );
-        // }
-        // Debug.Log("----");
-        CheckCanMoveAwayThreeItem();
     }
     
 

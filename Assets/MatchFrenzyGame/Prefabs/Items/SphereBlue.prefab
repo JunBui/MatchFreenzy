@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32a2f000b39830d479f643d5d7c35f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrenzyItemController: {fileID: 0}
+  FrenzyItemController: {fileID: 5826452150240980995}
   id: SphereBlue
   icon: {fileID: 21300000, guid: 626b9cddb29049e4cac50cd87b419945, type: 3}
   HolderIndex: -1
@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Outline: {fileID: 0}
   rb: {fileID: 0}
+  Collider: {fileID: 0}
   FrenzyItemManager: {fileID: 0}
 --- !u!54 &5826452150240980992
 Rigidbody:

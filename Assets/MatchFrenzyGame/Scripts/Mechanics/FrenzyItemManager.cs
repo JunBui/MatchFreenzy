@@ -13,5 +13,6 @@ public class FrenzyItemManager : MonoBehaviour
     {
         HolderIndex = -1;
         FrenzyGameManager.Instance.FrenzyItemManagers.Add(this);
+        FrenzyItemController.FrenzyItemManager = this;
     }
 }

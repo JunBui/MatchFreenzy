@@ -9,6 +9,7 @@ public class FrenzyItemController : MonoBehaviour
 {
     public Outline Outline;
     public Rigidbody rb;
+    public Collider Collider;
     public FrenzyItemManager FrenzyItemManager;
     private bool canSelect;
 
@@ -19,13 +20,15 @@ public class FrenzyItemController : MonoBehaviour
         defaultLocalScale = this.transform.localScale;
         canSelect = true;
         Outline = GetComponent<Outline>();
-        FrenzyItemManager thisItemManager = GetComponentInParent<FrenzyItemManager>();
-        rb = GetComponent<Rigidbody>();
-        if (thisItemManager)
-        {
-            thisItemManager.FrenzyItemController = this;
-            FrenzyItemManager = thisItemManager;
-        }
+        Collider = GetComponent<Collider>();
+        // FrenzyItemManager thisItemManager = GetComponentInParent<FrenzyItemManager>();
+        if(rb == null)
+            rb = GetComponent<Rigidbody>();
+        // if (thisItemManager)
+        // {
+        //     thisItemManager.FrenzyItemController = this;
+        //     FrenzyItemManager = thisItemManager;
+        // }
     }
 
     public void OnSelected()
@@ -42,6 +45,8 @@ public class FrenzyItemController : MonoBehaviour
             return;
         if (rb)
             rb.isKinematic = true;
+        if (Collider)
+            Collider.enabled = false;
         if (FrenzyItemManager)
         {
             FrenzyItemManager.HolderIndex = holderIndex;
@@ -52,9 +57,10 @@ public class FrenzyItemController : MonoBehaviour
             
         }
         canSelect = false;
+        FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
         MoveTo(MoveToPos,(() =>
         {
-            FrenzyGameManager.Instance.AddItemToDataHolder(FrenzyItemManager);
+            FrenzyGameManager.Instance.CheckCanMoveAwayThreeItem();
         }));
         this.transform.DOScale(Vector3.one, .75f);
     }
@@ -64,21 +70,21 @@ public class FrenzyItemController : MonoBehaviour
         Vector3 modifyMovePos = MoveToPos.position;
         modifyMovePos.y += .1f;
 
-        transform.DOMove(modifyMovePos, 1).OnComplete((() => { OnComplete?.Invoke();}));
+        transform.DOMove(modifyMovePos, .25f).OnComplete((() => { OnComplete?.Invoke();})).SetEase(Ease.InOutSine);
     }
 
     public void DestroyItem(Transform MoveToPos,Action OnComplete)
     {
-        transform.DOMove(MoveToPos.position, .5f).OnComplete((() =>
+        transform.DOMove(MoveToPos.position, .25f).OnComplete((() =>
         {
-            transform.DOScale(new Vector3(1.2f,1.2f,1.2f),.5f).OnComplete((() =>
+            transform.DOScale(new Vector3(1.2f,1.2f,1.2f),.25f).OnComplete((() =>
             {
-                transform.DOScale(Vector3.zero, .2f).OnComplete((() =>
+                transform.DOScale(Vector3.zero, .05f).OnComplete((() =>
                 {
                     OnComplete?.Invoke();
-                }));
-            }));
-        }));
+                })).SetEase(Ease.InOutSine);
+            })).SetEase(Ease.InOutSine);
+        })).SetEase(Ease.InOutSine);
     }
 
     public void OnDeselect()
